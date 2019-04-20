@@ -2,7 +2,7 @@ var App = {
 
   $spinner: $('.spinner img'),
 
-  username: 'anonymous',
+  username: 'guccifer2.0',
 
   initialize: function() {
     App.username = window.location.search.substr(10);
@@ -14,18 +14,19 @@ var App = {
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
-
+    //RoomsView.$select.append(`<option value="test">test</option>`);
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
-      console.log(data);
-
+      Messages.messages = data;
+      for (var i = 0; i < data.results.length; i++) {
+        MessagesView.renderMessage(data.results[i]);
+      }
       callback();
     });
   },
-
+  
   startSpinner: function() {
     App.$spinner.show();
     FormView.setStatus(true);
@@ -36,3 +37,4 @@ var App = {
     FormView.setStatus(false);
   }
 };
+
