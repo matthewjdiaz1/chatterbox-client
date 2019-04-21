@@ -12,11 +12,14 @@ var RoomsView = {
   },
 
   render: function() {
-  
+    
   },
 
   renderRoom: function(room) {
-    Rooms[room] = null;
+    // for (var i = 0; i < Object.keys(Rooms).length; i++) {
+    //   Rooms[room] = i;  
+    // }
+    
     this.$select.append(new Option(room, Rooms[room]));
   }
 };

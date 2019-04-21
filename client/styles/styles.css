@@ -70,7 +70,7 @@ form input[type=text] {
 }
 
 .chat:hover {
-    background-color: #ddd;
+    background-color: turquoise;
 }
 
 .spinner {
@@ -84,7 +84,13 @@ form input[type=text] {
 }
 
 .friend {
-    color: #fff;
-    background-color: #0090da;
+    color: hotpink;
+    background-color: black;
+    
+}
+
+.friend:hover {
+    color: black; 
+    background-color: hotpink;
 }
 

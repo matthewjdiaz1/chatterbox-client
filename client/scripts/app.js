@@ -1,8 +1,8 @@
 var App = {
 
   $spinner: $('.spinner img'),
-
-  username: 'guccifer2.0',
+  username: null,
+  currentRoom: null,
 
   initialize: function() {
     App.username = window.location.search.substr(10);
@@ -19,10 +19,33 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      Messages.messages = data;
-      for (var i = 0; i < data.results.length; i++) {
-        MessagesView.renderMessage(data.results[i]);
-      }
+      
+      // logging messages
+      Messages = data;
+      Messages.results.forEach(message =>{
+        message.friend = false;
+      });
+      
+      // show all messages
+      MessagesView.renderMessage(Messages.results);
+      // for (var i = 0; i < data.results.length; i++) {
+      //   MessagesView.renderMessage(data.results[i]);
+      // }
+      
+      // log all room names
+      data.results.forEach(message => {
+        // if not undefined, and if not currently in Rooms
+        if (message.roomname && !Object.values(Rooms).includes(message.roomname)) {
+          Rooms[Object.keys(Rooms).length] = message.roomname;
+        }
+      });
+      
+      App.currentRoom = Rooms[0];
+      // show rooms in selector
+      Object.values(Rooms).forEach(room =>{
+        RoomsView.renderRoom(room);
+      });
+      
       callback();
     });
   },
